@@ -36,6 +36,6 @@ function update ()
 //    ]); //
 
     graphics.fillStyle(0xff0000, 1);
-    graphics.fillRect(this.input.pointer1.x, this.input.pointer1.y, 64, 64);
+    graphics.fillRect(window.innerWidth/2, this.input.pointer1.y, 64, 64);
 
 }
