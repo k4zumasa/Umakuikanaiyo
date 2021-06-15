@@ -42,7 +42,7 @@ function update ()
     graphics.fillRect(
         window.innerWidth/2 - rectWidth/2,
         this.input.pointer1.y,
-        rectWidth,
+        rectWidth*2,
         rectHeight);
 //    graphics.fillRect(window.innerWidth/2, this.input.mousePointer.y;, 64, 64);
 
