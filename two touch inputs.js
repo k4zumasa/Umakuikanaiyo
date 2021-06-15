@@ -33,20 +33,9 @@ function update ()
 
     text.setText([
         'pointer1.isDown: ' + this.input.pointer1.isDown,
-        'pointer2.isDown: ' + this.input.pointer2.isDown,
-        'pointer3.isDown: ' + this.input.pointer3.isDown,
-        'pointer4.isDown: ' + this.input.pointer4.isDown
     ]);
 
     graphics.fillStyle(0xff0000, 1);
     graphics.fillRect(this.input.pointer1.x, this.input.pointer1.y, 64, 64);
 
-    graphics.fillStyle(0x00ff00, 1);
-    graphics.fillRect(this.input.pointer2.x, this.input.pointer2.y, 64, 64);
-
-    graphics.fillStyle(0x0000ff, 1);
-    graphics.fillRect(this.input.pointer3.x, this.input.pointer3.y, 64, 64);
-
-    graphics.fillStyle(0xff00ff, 1);
-    graphics.fillRect(this.input.pointer4.x, this.input.pointer4.y, 64, 64);
 }
