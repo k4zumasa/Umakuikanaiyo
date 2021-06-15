@@ -1,8 +1,8 @@
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    width: window.innerWidth,
+    height: window.innerHeight,
     scene: {
         create: create,
         update: update
@@ -21,7 +21,7 @@ function create ()
     //  We need 3 extra pointers, as we only get 1 by default
     this.input.addPointer(3);
 
-    text = this.add.text(10, 10, 'Use up to 4 fingers at once', { font: '16px Courier', fill: '#00ff00' });
+//    text = this.add.text(10, 10, 'Use up to 4 fingers at once', { font: '16px Courier', fill: '#00ff00' });
 }
 
 function update ()
@@ -31,9 +31,9 @@ function update ()
         graphics.clear();
     }
 
-    text.setText([
-        'pointer1.isDown: ' + this.input.pointer1.isDown,
-    ]);
+//    text.setText([
+//        'pointer1.isDown: ' + this.input.pointer1.isDown,
+//    ]); //
 
     graphics.fillStyle(0xff0000, 1);
     graphics.fillRect(this.input.pointer1.x, this.input.pointer1.y, 64, 64);
