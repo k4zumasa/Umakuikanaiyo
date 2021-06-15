@@ -42,8 +42,8 @@ function update ()
     graphics.fillRect(
         window.innerWidth/2 - rectWidth/2,
         this.input.pointer1.y,
-        rectWidth*2,
-        rectHeight);
+        rectWidth,
+        rectHeight*2);
 //    graphics.fillRect(window.innerWidth/2, this.input.mousePointer.y;, 64, 64);
 
     for (let i = 0; i < 6; i++) {
