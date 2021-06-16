@@ -41,15 +41,12 @@ function update ()
 
     //操作できるカーソルを描画
     graphics.fillStyle(0x0a0a0a, 1);
-    graphics.fillRect(
-        window.innerWidth/2 - rectWidth/2,
-        this.input.pointer1.y,
-        200,
-        rectHeight*2);
+    graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,500, rectHeight*2);
+    //graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,200, rectHeight*2);
 
     //縞模様を描画
     for (let i = 0; i < 20; i++) {
-        graphics.fillRect(0, i*2*rectHeight ,rectWidth, rectHeight);
+        graphics.fillRect(-20, i*2*rectHeight ,rectWidth, rectHeight);
         //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
     }
 
