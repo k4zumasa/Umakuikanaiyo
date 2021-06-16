@@ -47,7 +47,7 @@ function update ()
 
     //縞模様を描画
     for (let i = 0; i < 20; i++) {
-        graphics.fillRect(-20, i*2*rectHeight-70 ,rectWidth-70, rectHeight);
+        graphics.fillRect(-20, i*2*rectHeight-70 ,rectWidth, rectHeight-70);
         //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
     }
 
