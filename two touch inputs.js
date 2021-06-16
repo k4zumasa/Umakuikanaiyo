@@ -14,6 +14,7 @@ var graphics;
 var text;
 var rectWidth = 1000; //200
 var rectHeight = 180; //60
+var iconWidth = 500;
 
 var game = new Phaser.Game(config);
 
@@ -41,7 +42,7 @@ function update ()
 
     //操作できるカーソルを描画
     graphics.fillStyle(0x0a0a0a, 1);
-    graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,500, rectHeight*2);
+    graphics.fillRect(window.innerWidth/2 - iconWidth/2, this.input.pointer1.y, iconWidth, rectHeight*2);
     //graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,200, rectHeight*2);
 
     //縞模様を描画
