@@ -27,6 +27,7 @@ function create ()
 //    text = this.add.text(10, 10, 'Use up to 4 fingers at once', { font: '16px Courier', fill: '#00ff00' });
 }
 
+//毎フレーム実行される
 function update ()
 {
     if (this.input.pointer1.isDown || this.input.pointer2.isDown || this.input.pointer3.isDown || this.input.pointer4.isDown)
@@ -38,14 +39,15 @@ function update ()
 //        'pointer1.isDown: ' + this.input.pointer1.isDown,
 //    ]); //
 
+    //操作できるカーソルを描画
     graphics.fillStyle(0x0a0a0a, 1);
     graphics.fillRect(
         window.innerWidth/2 - rectWidth/2,
         this.input.pointer1.y,
         rectWidth,
-        rectHeight*2);
-//    graphics.fillRect(window.innerWidth/2, this.input.mousePointer.y;, 64, 64);
+        rectHeight);
 
+    //縞模様を描画
     for (let i = 0; i < 6; i++) {
         graphics.fillRect(window.innerWidth/2 - rectWidth/2,
         window.innerHeight/2 - rectHeight/2*(-11 + i*4),
