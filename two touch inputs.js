@@ -13,7 +13,7 @@ var config = {
 var graphics;
 var text;
 var rectWidth = 1000; //200
-var rectHeight = 180; //60
+var rectHeight = 1; //60
 var iconWidth = 500;
 
 var game = new Phaser.Game(config);
@@ -47,7 +47,7 @@ function update ()
 
     //縞模様を描画
     for (let i = 0; i < 20; i++) {
-        graphics.fillRect(-20, i*2*rectHeight-40 ,rectWidth, rectHeight-40);
+        graphics.fillRect(-20, i*2*rectHeight ,rectWidth, rectHeight);
         //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
     }
 
