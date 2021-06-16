@@ -12,8 +12,8 @@ var config = {
 
 var graphics;
 var text;
-var rectWidth = 1000; //200
-var rectHeight = 100; //60
+var rectWidth = 200; //200
+var rectHeight = 60; //60
 
 var game = new Phaser.Game(config);
 
@@ -53,6 +53,7 @@ function update ()
         window.innerHeight/2 - rectHeight/2*(-11 + i*4),
         rectWidth,
         rectHeight);
+        //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
     }
 
 
