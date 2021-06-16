@@ -3,12 +3,12 @@ var config = {
     parent: 'phaser-example',
     width: window.innerWidth,
     height: window.innerHeight,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#000000',
     scene: {
         create: create,
         update: update
     }
-};
+}; //#f5f5f5
 
 var graphics;
 var text;
