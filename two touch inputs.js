@@ -14,7 +14,7 @@ var graphics;
 var text;
 var rectWidth = 1000; //200
 var rectHeight = 130; //60
-var iconWidth = 500;
+var iconWidth = 600;
 
 var game = new Phaser.Game(config);
 
