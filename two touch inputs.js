@@ -41,7 +41,7 @@ function update ()
 //    ]); //
 
     //操作できるカーソルを描画
-    graphics.fillStyle(0xffffe5, 1);//graphics.fillStyle(0x0a0a0a, 1)
+    graphics.fillStyle(ffffffff, 1);//graphics.fillStyle(0x0a0a0a, 1)
     graphics.fillRect(window.innerWidth/2 - iconWidth/2, this.input.pointer1.y-100, iconWidth, rectHeight*2);
     //graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,200, rectHeight*2);
 
