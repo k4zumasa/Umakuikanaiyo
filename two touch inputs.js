@@ -44,8 +44,8 @@ function update ()
     graphics.fillRect(
         window.innerWidth/2 - rectWidth/2,
         this.input.pointer1.y,
-        rectWidth,
-        rectHeight);
+        200,
+        rectHeight*2);
 
     //縞模様を描画
     for (let i = 0; i < 6; i++) {
