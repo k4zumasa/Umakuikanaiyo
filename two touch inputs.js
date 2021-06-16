@@ -12,8 +12,8 @@ var config = {
 
 var graphics;
 var text;
-var rectWidth = 1000;
-var rectHeight = 60;
+var rectWidth = 1000; //200
+var rectHeight = 100; //60
 
 var game = new Phaser.Game(config);
 
