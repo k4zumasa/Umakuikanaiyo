@@ -13,7 +13,7 @@ var config = {
 var graphics;
 var text;
 var rectWidth = 1000; //200
-var rectHeight = 1; //60
+var rectHeight = 130; //60
 var iconWidth = 500;
 
 var game = new Phaser.Game(config);
