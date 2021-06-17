@@ -50,6 +50,7 @@ function update ()
         graphics.fillRect(-20, i*2*rectHeight ,rectWidth, rectHeight);
         //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
     }
+     document.write("");
 
 
 
