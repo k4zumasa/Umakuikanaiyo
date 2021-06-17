@@ -25,20 +25,16 @@ function create ()
     this.input.addPointer(3);
 
     //オブジェクトとしてカーソルを表示
-    var cursor = this.add.rectangle(200, 150, 148, 148, 0x0a0a0a).setInteractive();
+    var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth, rectHeight, 0x0a0a0a).setInteractive();
 
     //カーソルをdraggableに
     this.input.setDraggable(cursor);
-    this.input.on('dragstart', function(pointer, dragX, dragY){
-        // ...
-    })
-    this.input.on('drag', function(pointer, dragX, dragY){
-        gameObject.setPosition(dragX, dragY);
-    })
-    this.input.on('dragend', function(pointer, dragX, dragY, dropped){
-        // ...
-    })
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+        gameObject.y = dragY;
+    });
+
 }
+
 
 //毎フレーム実行される
 function update ()
