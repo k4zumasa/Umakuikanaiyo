@@ -27,6 +27,19 @@ function create ()
 
     //  We need 3 extra pointers, as we only get 1 by default
     this.input.addPointer(3);
+     //操作できるカーソルを描画
+    graphics.fillStyle(0xffffff, 1);//graphics.fillStyle(0x0a0a0a, 1)
+    graphics.top += dy
+    graphics.fillRect(window.innerWidth/2 - iconWidth/2,  80, iconWidth, rectHeight*2);
+    //graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,200, rectHeight*2); this.input.pointer1.y-60
+    //document.write(this.input.pointer1.y-60);//座標
+    pre_y =this.input.pointer1.y
+
+    //縞模様を描画
+    for (let i = 0; i < 20; i++) {
+        graphics.fillRect(-20, i*2*rectHeight ,rectWidth, rectHeight);
+        //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
+    }
 
 //    text = this.add.text(10, 10, 'Use up to 4 fingers at once', { font: '16px Courier', fill: '#00ff00' });
 }
@@ -44,22 +57,11 @@ function update ()
 //    ]); //
     new_y = this.input.pointer1.y;
     dy = this.input.pointer1.y - pre_y;
+    grafics.moveTo(window.innerWidth/2 - iconWidth/2,  his.input.pointer1.y-60);
     //graphics.top = this.input.pointer1.y;
     //graphics.top += dy
     //document.write(graphics.top)
 
-    //操作できるカーソルを描画
-    graphics.fillStyle(0xffffff, 1);//graphics.fillStyle(0x0a0a0a, 1)
-    graphics.top += dy
-    graphics.fillRect(window.innerWidth/2 - iconWidth/2,  graphics.top, iconWidth, rectHeight*2);
-    //graphics.fillRect(window.innerWidth/2 - rectWidth/2, this.input.pointer1.y,200, rectHeight*2); this.input.pointer1.y-60
-    //document.write(this.input.pointer1.y-60);//座標
-    pre_y =this.input.pointer1.y
-
-    //縞模様を描画
-    for (let i = 0; i < 20; i++) {
-        graphics.fillRect(-20, i*2*rectHeight ,rectWidth, rectHeight);
-        //graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
-    }
+   
    
 }
