@@ -27,6 +27,7 @@ function create ()
 
     //  We need 3 extra pointers, as we only get 1 by default
     this.input.addPointer(3);
+    graphics.top = this.input.pointer1.y;
 
 //    text = this.add.text(10, 10, 'Use up to 4 fingers at once', { font: '16px Courier', fill: '#00ff00' });
 }
@@ -43,7 +44,7 @@ function update ()
 //        'pointer1.isDown: ' + this.input.pointer1.isDown,
 //    ]); //
     new_y = this.input.pointer1.y;
-    graphics.top = new_y;
+    //graphics.top = new_y;
     dy = this.input.pointer1.y - pre_y;
     //graphics.top = this.input.pointer1.y;
     //graphics.top += dy
