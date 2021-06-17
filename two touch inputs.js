@@ -21,9 +21,6 @@ function create ()
 {
     graphics = this.add.graphics();
 
-    //  We need 3 extra pointers, as we only get 1 by default
-    this.input.addPointer(3);
-
     //オブジェクトとしてカーソルを表示
     var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth, rectHeight, 0x0a0a0a).setInteractive();
 
@@ -33,8 +30,13 @@ function create ()
         gameObject.y = dragY;
     });
 
+    for (let i = 0; i < 6; i++) {
+        graphics.fillRect(window.innerWidth/2 - rectWidth/2,
+        window.innerHeight/2 - rectHeight/2*(-11 + i*4),
+        rectWidth,
+        rectHeight);
+    }
 }
-
 
 //毎フレーム実行される
 function update ()
@@ -44,17 +46,6 @@ function update ()
 //        graphics.clear();
 //    }
 
-//    graphics.fillRect(
-//        window.innerWidth/2 - rectWidth/2,
-//        this.input.pointer1.y,
-//        rectWidth,
-//        rectHeight);
 
-    for (let i = 0; i < 6; i++) {
-        graphics.fillRect(window.innerWidth/2 - rectWidth/2,
-        window.innerHeight/2 - rectHeight/2*(-11 + i*4),
-        rectWidth,
-        rectHeight);
-    }
 
 }
