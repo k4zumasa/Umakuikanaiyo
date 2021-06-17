@@ -43,6 +43,7 @@ function update ()
 //        'pointer1.isDown: ' + this.input.pointer1.isDown,
 //    ]); //
     new_y = this.input.pointer1.y;
+    graphics.top = new_y;
     dy = this.input.pointer1.y - pre_y;
     //graphics.top = this.input.pointer1.y;
     //graphics.top += dy
