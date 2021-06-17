@@ -57,7 +57,7 @@ function update ()
 //    ]); //
     new_y = this.input.pointer1.y;
     dy = this.input.pointer1.y - pre_y;
-    grafics.moveTo(window.innerWidth/2 - iconWidth/2,  his.input.pointer1.y-60);
+    graphics.fillRect(window.innerWidth/2 - iconWidth/2,   this.input.pointer1.y-60, iconWidth, rectHeight*2);
     //graphics.top = this.input.pointer1.y;
     //graphics.top += dy
     //document.write(graphics.top)
