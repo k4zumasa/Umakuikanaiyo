@@ -14,8 +14,8 @@ var graphics;
 var text;
 var rectWidth = window.innerWidth ;
 var rectHeight = 120;
-var cursorHeight = 120*2;
-var cursorColor = 0xffffff;
+var cursorHeight = 120;
+var cursorColor = 0x000000; //0xffffff
 var stripeColor = 0x000000;
 
 var game = new Phaser.Game(config);
