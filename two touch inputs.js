@@ -13,8 +13,8 @@ var config = {
 var graphics;
 var text;
 var rectWidth = window.innerWidth ;
-var rectHeight = 120;
-var cursorHeight = 120;
+var rectHeight = 240;
+var cursorHeight = 240;
 var cursorColor = 0x000000; //0xffffff
 var stripeColor = 0x000000;
 
