@@ -25,7 +25,7 @@ function create ()
     graphics = this.add.graphics();
 
     //オブジェクトとしてカーソルを表示
-    var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth+1, cursorHeight, cursorColor).setInteractive();
+    var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth, cursorHeight, cursorColor).setInteractive();
 
     //カーソルをdraggableに
     this.input.setDraggable(cursor);
