@@ -12,7 +12,7 @@ var config = {
 
 var graphics;
 var text;
-var rectWidth = 1000; //200
+var rectWidth = 10000; //200
 var rectHeight = 130; //60
 var iconWidth = 600;
 var pre_y = 0;
