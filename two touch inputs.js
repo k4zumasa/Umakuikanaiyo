@@ -12,8 +12,11 @@ var config = {
 
 var graphics;
 var text;
-var rectWidth = window.innerWidth * 0.8;
+var rectWidth = window.innerWidth ;
 var rectHeight = 120;
+var cursorHeight = 120*2;
+var cursorColor = 0xffffff;
+var stripeColor = 0x000000;
 
 var game = new Phaser.Game(config);
 
@@ -22,7 +25,7 @@ function create ()
     graphics = this.add.graphics();
 
     //オブジェクトとしてカーソルを表示
-    var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth+1, rectHeight, 0xffffff).setInteractive();
+    var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth+1, cursorHeight, cursorColor).setInteractive();
 
     //カーソルをdraggableに
     this.input.setDraggable(cursor);
@@ -31,7 +34,7 @@ function create ()
     });
 
     for (let i = 0; i < 6; i++) {
-        graphics.fillStyle(0x000000, 1);
+        graphics.fillStyle(stripeColor, 1);
         graphics.fillRect(window.innerWidth/2 - rectWidth/2,
         window.innerHeight/2 - rectHeight/2*(-11 + i*4),
         rectWidth,
