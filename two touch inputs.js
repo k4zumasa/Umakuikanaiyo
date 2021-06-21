@@ -12,9 +12,9 @@ var config = {
 
 var graphics;
 var text;
-var rectWidth = window.innerWidth ;
-var rectHeight = 240;
-var cursorHeight = 240;
+var rectWidth = window.innerWidth/1.5 ;
+var rectHeight = 100;
+var cursorHeight = 100;
 var cursorColor = 0x000000; //0xffffff
 var stripeColor = 0x000000;
 
@@ -33,12 +33,15 @@ function create ()
         gameObject.y = dragY;
     });
 
+
     for (let i = 0; i < 6; i++) {
         graphics.fillStyle(stripeColor, 1);
-        graphics.fillRect(window.innerWidth/2 - rectWidth/2,
-        window.innerHeight/2 - rectHeight/2*(-11 + i*4),
-        rectWidth,
-        rectHeight);
+        graphics.fillRect();
+        var stripe = this.add.rectangle(window.innerWidth/2,
+                                          window.innerHeight/2 - rectHeight/2*(-11 + i*4),
+                                          rectWidth,
+                                          rectHeight, cursorColor);
+
     }
 }
 
