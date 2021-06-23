@@ -10,6 +10,7 @@ var config = {
     }
 }; //#f5f5f5
 
+/*
 var graphics;
 var text;
 var rectWidth = 10000; //200
@@ -20,6 +21,8 @@ var new_y = 0;
 var dy = 0;
 
 var game = new Phaser.Game(config);
+
+/*
 
 function create ()
 {
@@ -65,3 +68,58 @@ function update ()
     }
    
 }
+*/
+
+//今だけ(後で戻す)
+var graphics;
+var text;
+var rectWidth = window.innerWidth ;
+var rectHeight = 50;
+var cursorHeight = 240;
+var cursorColor = 0x000000; //0xffffff
+var stripeColor = 0x000000;
+
+var game = new Phaser.Game(config);
+// var graphics;
+// var text;
+// var rectWidth = 100; //200
+// var rectHeight = 130; //60
+// var iconWidth = 60;
+// var pre_y = 0;
+// var new_y = 0;
+// var dy = 0;
+
+// var game = new Phaser.Game(config);
+
+function create ()
+{
+    graphics = this.add.graphics();
+
+    //オブジェクトとしてカーソルを表示
+    var cursor = this.add.rectangle(window.innerWidth/2, 0, rectWidth, rectHeight*2, cursorColor).setInteractive();
+
+    //カーソルをdraggableに
+    this.input.setDraggable(cursor);
+    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+        gameObject.y = dragY;
+    });
+
+    for (let i = 0; i < 10; i++) {
+        graphics.fillStyle(stripeColor, 1);
+        graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
+    }
+    const target = document.getElementById('item_1');
+
+    for (let i = 0; i < target.length; i++) {
+        target[i].addEventListener('click', () => {
+            target[i].style.display = "none";	
+        }, false);
+    }
+}
+
+//毎フレーム実行される
+function update ()
+{
+
+}
+
