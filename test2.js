@@ -30,10 +30,10 @@ var cursor2;
 var stripes;
 var graphics;
 var rectangles;
-var cursorWidth = window.innerWidth/1.5;
-var stripeWidth = window.innerWidth/1.5;
-var cursorHeight = 100;
-var stripeHeight = 110;
+var cursorWidth = window.innerWidth;
+var stripeWidth = window.innerWidth;
+var cursorHeight = 120;
+var stripeHeight = 120;
 var cursorColor = 0xffffff; //0xffffff
 var stripeColor = 0xffffff;
 var suitekiplayed;
