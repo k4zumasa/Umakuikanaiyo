@@ -3,7 +3,7 @@ var config = {
     parent: 'phaser-example',
     width: window.innerWidth,
     height: window.innerHeight,
-    backgroundColor: '#000000',
+    backgroundColor: '0xffffff',
     scene: {
         create: create,
         update: update
