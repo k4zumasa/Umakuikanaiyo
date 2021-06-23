@@ -1,8 +1,8 @@
 function preload ()
 {
+    //音声ファイルの読み込み
     this.load.audio('suiteki', ['assets/suiteki.mp3']);
     this.load.audio('suityu', ['assets/suityu.mp3']);
-
     this.load.image('thumb', 'assets/thumb.png');
 
 }
@@ -99,9 +99,7 @@ function update (){
         || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[5]) ){
 
 //         console.log("intersected");
-           if(this.suiteki.isPlaying){
-               this.suiteki.stop();
-           }
+
            if(!this.suityu.isPlaying){
                this.suityu.play();
            }
@@ -119,7 +117,7 @@ function update (){
        if(!this.suiteki.isPlaying
           && !suitekiplayed){
            this.suiteki.play();
-           suitekiplayed = true
+           suitekiplayed = true;
         }
     }
 }
