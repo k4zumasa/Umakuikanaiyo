@@ -74,22 +74,13 @@ function update ()
 var graphics;
 var text;
 var rectWidth = window.innerWidth ;
-var rectHeight = 50;
-var cursorHeight = 240;
+var rectHeight = 100;
+var cursorHeight = 200;
 var cursorColor = 0x000000; //0xffffff
 var stripeColor = 0x000000;
 
 var game = new Phaser.Game(config);
-// var graphics;
-// var text;
-// var rectWidth = 100; //200
-// var rectHeight = 130; //60
-// var iconWidth = 60;
-// var pre_y = 0;
-// var new_y = 0;
-// var dy = 0;
 
-// var game = new Phaser.Game(config);
 
 function create ()
 {
