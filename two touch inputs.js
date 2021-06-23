@@ -8,7 +8,7 @@ var config = {
         create: create,
         update: update
     }
-}; //#f5f5f5
+}; //#f5f5f5　0x000000
 
 /*
 var graphics;
