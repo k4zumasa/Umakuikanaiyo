@@ -32,8 +32,8 @@ var graphics;
 var rectangles;
 var cursorWidth = window.innerWidth;
 var stripeWidth = window.innerWidth;
-var cursorHeight = 120;
-var stripeHeight = 120;
+var cursorHeight = 140;
+var stripeHeight = 140;
 var cursorColor = 0xffffff; //0xffffff
 var stripeColor = 0xffffff;
 var suitekiplayed;
