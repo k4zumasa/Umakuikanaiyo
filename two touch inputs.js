@@ -99,13 +99,6 @@ function create ()
         graphics.fillStyle(stripeColor, 1);
         graphics.fillRect(window.innerWidth/2 - rectWidth/2,window.innerHeight/2 - rectHeight/2*(-11 + i*4),rectWidth,rectHeight);
     }
-    const target = document.getElementById('item_1');
-
-    for (let i = 0; i < target.length; i++) {
-        target[i].addEventListener('click', () => {
-            target[i].style.display = "none";	
-        }, false);
-    }
 }
 
 //毎フレーム実行される
