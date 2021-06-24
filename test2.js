@@ -72,7 +72,7 @@ function create (){
         window.innerWidth/2 - cursorWidth/2,
         0,
         cursorWidth,
-        75,
+        cursorHeight*0.85,
         Phaser.Geom.Rectangle.Contains);
 
     this.input.on('pointermove', function (pointer) {
