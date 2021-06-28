@@ -61,13 +61,14 @@ function create (){
         cursorColor));
     }
 
-    //カーソルの生成とドラッグ有効化
+    //カーソルの生成
     cursor = new Phaser.Geom.Rectangle(
         window.innerWidth/2 - cursorWidth/2,
         0,
         cursorWidth,
         cursorHeight, Phaser.Geom.Rectangle.Contains);
 
+    //当たり判定のための透明カーソル
     cursor2 = new Phaser.Geom.Rectangle(
         window.innerWidth/2 - cursorWidth/2,
         0,
@@ -75,6 +76,7 @@ function create (){
         cursorHeight*0.85,
         Phaser.Geom.Rectangle.Contains);
 
+    //ドラッグ有効化
     this.input.on('pointermove', function (pointer) {
         Phaser.Geom.Rectangle.CenterOn(cursor, window.innerWidth/2, pointer.y);
         Phaser.Geom.Rectangle.CenterOn(cursor2, window.innerWidth/2, pointer.y);
@@ -98,26 +100,19 @@ function update (){
         || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[4])
         || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[5]) ){
 
-//         console.log("intersected");
-
-           if(!this.suityu.isPlaying){
-               this.suityu.play();
-           }
-           suitekiplayed = false;
+        if(!this.suityu.isPlaying){
+            this.suityu.play();
+        }
+        suitekiplayed = false;
 
     }else{
-//       console.log("not intersected");
-//        this.suityu.stop();
-//        this.suiteki.play();
-//
-       if(this.suityu.isPlaying){
-        this.suityu.stop();
-       }
-//
-       if(!this.suiteki.isPlaying
-          && !suitekiplayed){
-           this.suiteki.play();
-           suitekiplayed = true;
+        if(this.suityu.isPlaying){
+            this.suityu.stop();
+        }
+
+        if(!this.suiteki.isPlaying && !suitekiplayed){
+            this.suiteki.play();
+            suitekiplayed = true;
         }
     }
 }
