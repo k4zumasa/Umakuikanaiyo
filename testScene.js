@@ -94,7 +94,6 @@ class mainScene extends Phaser.Scene {
         });
 
         textToTitle.on('pointerdown', () => {
-            this.suityu.pause();
             this.scene.start("titleScene")
         });
 
@@ -164,7 +163,7 @@ class mainScene extends Phaser.Scene {
 
             }else{
                 if(this.suityu.isPlaying){
-//                    this.suityu.stop();
+                    this.suityu.stop();
                 }
         //
                 if(!this.suiteki.isPlaying && !suitekiplayed){
