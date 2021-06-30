@@ -5,8 +5,8 @@ var stripes;
 var rectangles;
 var cursorWidth = window.innerWidth;
 var stripeWidth = window.innerWidth;
-var cursorHeight = 140;
-var stripeHeight = 140;
+var cursorHeight = 160;
+var stripeHeight = 160;
 var cursorColor = 0x2b2b2b; //0xffffff
 var stripeColor = 0x2b2b2b;
 var suitekiplayed;
@@ -44,8 +44,8 @@ class titleScene extends Phaser.Scene {
 
             mainMode = "water";
 
-            cursorHeight = 140;
-            stripeHeight = 140;
+            cursorHeight = 160;
+            stripeHeight = 160;
 //            cursorColor = 0xffffff; //0xffffff
 //            stripeColor = 0xffffff;
 
@@ -57,8 +57,8 @@ class titleScene extends Phaser.Scene {
 
             mainMode = "knock";
 
-            cursorHeight = 280;
-            stripeHeight = 140;
+            cursorHeight = 320;
+            stripeHeight = 160;
 //            cursorColor = 0xffffff; //0xffffff
 //            stripeColor = 0xffffff;
 
