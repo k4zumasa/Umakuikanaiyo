@@ -7,14 +7,38 @@ var cursorWidth = window.innerWidth;
 var stripeWidth = window.innerWidth;
 var cursorHeight = 160;
 var stripeHeight = 160;
-var cursorColor = 0x2b2b2b; //0xffffff
-var stripeColor = 0x2b2b2b;
+var cursorColor = 0xffffff; //0xffffff
+var stripeColor = 0xffffff;
 var suitekiplayed;
 var knockplayed;
 var mainMode;
 var textColor = "0x000000";
 var fadeTime = 1300;
-var menuTweenDuration = 200;
+var menuTweenDuration = 2000;
+var tweenIsPlaying = false;
+var currentMainMode = [];
+
+var waterblue = "0x72DAE8"
+var grassgreen = "0x5F9968"
+var metalgray = "0x8A9DAD"
+var mudbrown = "0x7F6152"
+
+function hex2rgb ( hex ) {
+	if ( hex.slice(0, 1) == "#" ) hex = hex.slice(1) ;
+	if ( hex.length == 3 ) hex = hex.slice(0,1) + hex.slice(0,1) + hex.slice(1,2) + hex.slice(1,2) + hex.slice(2,3) + hex.slice(2,3) ;
+
+	return [ hex.slice( 0, 2 ), hex.slice( 2, 4 ), hex.slice( 4, 6 ) ].map( function ( str ) {
+		return parseInt( str, 16 ) ;
+	} ) ;
+}
+
+var waterblueRGB = hex2rgb(waterblue);
+var grassgreenRGB = hex2rgb(grassgreen);
+var metalgrayRGB = hex2rgb(metalgray);
+var mudbrownRGB = hex2rgb(mudbrown);
+
+console.log(waterblueRGB);
+
 
 //素材の読み込みシーン
 class preloadScene extends Phaser.Scene {
@@ -33,7 +57,8 @@ class preloadScene extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start("titleScene")
+//        this.scene.start("titleScene")
+        this.scene.start("menuScene")
     }
 }
 
@@ -41,7 +66,7 @@ class preloadScene extends Phaser.Scene {
 class titleScene extends Phaser.Scene {
 
     constructor () {
-        super({ key: 'titleScene', active: false });
+        super({ key: 'titleScene', active: true });
     }
 
     create() {
@@ -103,112 +128,142 @@ class descriptionScene extends Phaser.Scene {
 class menuScene extends Phaser.Scene {
 
     constructor ()    {
-        super({ key: 'menuScene', active: false });
+        super({ key: 'menuScene', active: true });
     }
 
     create() {
-        var rect1 = this.add.rectangle(innerWidth/8 * 1, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x72dae8);
-        var rect2 = this.add.rectangle(innerWidth/8 * 3, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x5F9968);
-        var rect3 = this.add.rectangle(innerWidth/8 * 5, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x8A9DAD);
-        var rect4 = this.add.rectangle(innerWidth/8 * 7, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x7F6152);
 
-        rect1.setStrokeStyle(0, 0xffffff);
-        rect2.setStrokeStyle(0, 0xffffff);
-        rect3.setStrokeStyle(0, 0xffffff);
-        rect4.setStrokeStyle(0, 0xffffff);
+        var rectArray = [];
+        var rect1 = this.add.rectangle(innerWidth/2 - 100 - 100 * 0.6 * 1.5 - 100 * 0.5, innerHeight/2 + 40, 100, 100, waterblue);
+        var rect2 = this.add.rectangle(innerWidth/2 - 100 * 0.5 - 100 * 0.6 * 0.5, innerHeight/2 + 40, 100, 100, grassgreen);
+        var rect3 = this.add.rectangle(innerWidth/2 + 100 * 0.5 + 100 * 0.6 * 0.5, innerHeight/2 + 40, 100, 100, metalgray);
+        var rect4 = this.add.rectangle(innerWidth/2 + 100 + 100 * 0.6 * 1.5 + 100 * 0.5, innerHeight/2 + 40, 100, 100, mudbrown);
 
-        rect1.setInteractive();
-        rect2.setInteractive();
-        rect3.setInteractive();
-        rect4.setInteractive();
+        rectArray.push(rect1, rect2, rect3, rect4);
 
-        rect1.on('pointerover', () => {
+        //アイコンのフェードイン表現
+        for (const elem of rectArray){
+            elem.setAlpha(0);
+        }
 
+        for (const elem of rectArray) {
             this.tweens.add({
-                targets: rect1,
-                scaleX: 1.07,
-                duration: menuTweenDuration,
-                ease: 'Power2'
+              targets: elem,
+              y: innerHeight/2,
+              alpha: 1,
+              duration: fadeTime,
+              ease: 'Expo.easeInOut',
+              onComplete: function () { tweenIsPlaying = false; }
+              }, this);
 
-            });
+              elem.setStrokeStyle(0);
+              elem.setInteractive();
+        }
+
+        rect1.on('pointerdown', () => {
+
+            if(tweenIsPlaying == false){
+
+                tweenIsPlaying = true;
+                console.log(tweenIsPlaying);
+
+                this.tweens.add({
+                    targets: rect1,
+                    scaleX: innerWidth/100,
+                    scaleY: innerHeight/100,
+                    x: innerWidth/2,
+                    duration: menuTweenDuration,
+                    ease: 'Expo.easeInOut',
+                    onComplete: function () { tweenIsPlaying = false;
+                                              goToMainScene(1) ;
+                                              currentMainMode = hex2rgb(waterblue) ; }
+                    }, this);
+
+                fadeOut(this, rect2, rect3, rect4);
+            }
+
         });
 
-        rect2.on('pointerover', () => {
+        rect2.on('pointerdown', () => {
 
-            this.tweens.add({
-                targets: rect2,
-                scaleX: 1.07,
-                duration: menuTweenDuration,
-                ease: 'Power2'
+            if(tweenIsPlaying == false){
+                tweenIsPlaying = true;
 
-            });
+                this.tweens.add({
+                    targets: rect2,
+                    scaleX: innerWidth/100,
+                    scaleY: innerHeight/100,
+                    x: innerWidth/2,
+                    duration: menuTweenDuration,
+                    ease: 'Expo.easeInOut',
+                    onComplete: function () { tweenIsPlaying = false;
+                                              goToMainScene(1);
+                                              currentMainMode = grassgreenRGB; }
+                    }, this);
+
+                fadeOut(this, rect1, rect3, rect4);
+            }
+
+
         });
 
-        rect3.on('pointerover', () => {
+        rect3.on('pointerdown', () => {
 
-            this.tweens.add({
-                targets: rect3,
-                scaleX: 1.07,
-                duration: menuTweenDuration,
-                ease: 'Power2'
+            if(tweenIsPlaying == false){
+                tweenIsPlaying = true;
 
-            });
+                this.tweens.add({
+                    targets: rect3,
+                    scaleX: innerWidth/100,
+                    scaleY: innerHeight/100,
+                    x: innerWidth/2,
+                    duration: menuTweenDuration,
+                    ease: 'Expo.easeInOut',
+                    onComplete: function () { tweenIsPlaying = false;
+                                              goToMainScene(1);
+                                              currentMainMode = metalgrayRGB; }
+                    }, this);
+
+                fadeOut(this, rect1, rect2, rect4);
+
+            }
         });
 
-        rect4.on('pointerover', () => {
+        rect4.on('pointerdown', () => {
 
-            this.tweens.add({
-                targets: rect4,
-                scaleX: 1.07,
-                duration: menuTweenDuration,
-                ease: 'Power2'
+            if(tweenIsPlaying == false){
+                tweenIsPlaying = true;
 
-            });
+                this.tweens.add({
+                    targets: rect4,
+                    scaleX: innerWidth/100,
+                    scaleY: innerHeight/100,
+                    x: innerWidth/2,
+                    duration: menuTweenDuration,
+                    ease: 'Expo.easeInOut',
+                    onComplete: function () { tweenIsPlaying = false;
+                                              goToMainScene(1);
+                                              currentMainMode = mudbrownRGB; }
+                    }, this);
+
+                fadeOut(this, rect1, rect2, rect3);
+            }
         });
 
-        rect1.on('pointerout', () => {
+        function fadeOut(a, rectA, rectB, rectC){
 
-            this.tweens.add({
-                targets: rect1,
-                scaleX: 1,
-                duration: menuTweenDuration,
-                ease: 'Power2'
+                a.tweens.add({
+                    targets: [ rectA,rectB,rectC ],
+                    alpha: 0,
+                    duration: 2000,
+                    ease: 'Expo',
+                }, this);
+        }
 
-            });
-        });
+        function goToMainScene(a){
+            game.scene.start("mainScene")
+        }
 
-        rect2.on('pointerout', () => {
-
-            this.tweens.add({
-                targets: rect2,
-                scaleX: 1,
-                duration: menuTweenDuration,
-                ease: 'Power2'
-
-            });
-        });
-
-        rect3.on('pointerout', () => {
-
-            this.tweens.add({
-                targets: rect3,
-                scaleX: 1,
-                duration: menuTweenDuration,
-                ease: 'Power2'
-
-            });
-        });
-
-        rect4.on('pointerout', () => {
-
-            this.tweens.add({
-                targets: rect4,
-                scaleX: 1,
-                duration: menuTweenDuration,
-                ease: 'Power2'
-
-            });
-        });
     }
 }
 
@@ -219,6 +274,8 @@ class mainScene extends Phaser.Scene {
     }
 
     create (){
+        console.log(currentMainMode);
+        this.cameras.main.fadeIn(1000, waterblue[0], waterblue[1], waterblue[2]);
 
         //Return to titleボタンを配置
         var textToTitle = this.add.text(0, 0, "Return to title").setFontSize(32).setColor('#000000');
@@ -230,7 +287,7 @@ class mainScene extends Phaser.Scene {
         });
 
         textToTitle.on('pointerdown', () => {
-            this.scene.start("titleScene")
+            this.scene.start("menuScene")
         });
 
         this.suityu = this.sound.add('suityu', false);
@@ -407,4 +464,3 @@ let config = {
 }
 
 let game = new Phaser.Game(config);
-
