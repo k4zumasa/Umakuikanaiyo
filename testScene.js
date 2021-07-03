@@ -13,56 +13,201 @@ var suitekiplayed;
 var knockplayed;
 var mainMode;
 var textColor = "0x000000";
+var fadeTime = 1300;
+var menuTweenDuration = 200;
 
-class titleScene extends Phaser.Scene {
+//素材の読み込みシーン
+class preloadScene extends Phaser.Scene {
 
     constructor ()    {
-        super({ key: 'titleScene', active: true });
+        super({ key: 'preloadScene', active: true });
     }
 
-    create(){
+    preload() {
+        this.load.image('titleBg', 'assets/thumb_mobile.png');
+        this.load.image('description', ['assets/description.png']);
 
-        // textを配置
-        var textToWater = this.add.text(100, 100, "waterScene").setFontSize(32).setColor(textColor);
-        var textToKnock = this.add.text(100, 200, "knockScene").setFontSize(32).setColor(textColor);
+        this.load.audio('suiteki', ['assets/suiteki.mp3']);
+        this.load.audio('suityu', ['assets/suityu.mp3']);
+        this.load.audio('knock', ['assets/knock.mp3']);
+    }
 
-        // textをクリックできるように設定
-        textToWater.setInteractive({
+    create() {
+        this.scene.start("titleScene")
+    }
+}
 
-            useHandCursor: true  // マウスオーバーでカーソルが指マークになる
+//タイトルシーン
+class titleScene extends Phaser.Scene {
 
+    constructor () {
+        super({ key: 'titleScene', active: false });
+    }
+
+    create() {
+        var titleBg = this.add.sprite(window.innerWidth/2, window.innerHeight/2, 'titleBg').setAlpha(0).setInteractive();
+
+        this.tweens.add({
+          targets: titleBg,
+          alpha: 1,
+          duration: fadeTime,
+          ease: 'Power2'
+        }, this);
+
+        titleBg.on('pointerdown', () => {
+
+            this.tweens.add({
+              targets: titleBg,
+              alpha: 0,
+              duration: fadeTime,
+              ease: 'Power2',
+              onComplete: () => { this.scene.start("descriptionScene") },
+            }, this);
         });
 
-        textToKnock.setInteractive({
+    }
+}
 
-            useHandCursor: true  // マウスオーバーでカーソルが指マークになる
+class descriptionScene extends Phaser.Scene {
 
+    constructor () {
+        super({ key: 'descriptionScene', active: false });
+    }
+
+    create() {
+        var descriptionImage = this.add.sprite(window.innerWidth/2, window.innerHeight/2+40, 'description').setAlpha(0).setInteractive();
+
+        this.tweens.add({
+          targets: descriptionImage,
+          alpha: 1,
+          y : window.innerHeight/2,
+          duration: fadeTime,
+          ease: 'Power2'
+        }, this);
+
+        descriptionImage.on('pointerdown', () => {
+
+            this.tweens.add({
+              targets: descriptionImage,
+              alpha: 0,
+              y : window.innerHeight/2-40,
+              duration: fadeTime,
+              ease: 'Power2',
+              onComplete: () => { this.scene.start("menuScene") },
+            }, this);
         });
 
-        // textをクリックしたら__Sceneに遷移
-        textToWater.on('pointerdown', () => {
+    }
+}
 
-            mainMode = "water";
+class menuScene extends Phaser.Scene {
 
-            cursorHeight = 160;
-            stripeHeight = 160;
-//            cursorColor = 0xffffff; //0xffffff
-//            stripeColor = 0xffffff;
+    constructor ()    {
+        super({ key: 'menuScene', active: false });
+    }
 
-            this.scene.start("mainScene")
+    create() {
+        var rect1 = this.add.rectangle(innerWidth/8 * 1, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x72dae8);
+        var rect2 = this.add.rectangle(innerWidth/8 * 3, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x5F9968);
+        var rect3 = this.add.rectangle(innerWidth/8 * 5, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x8A9DAD);
+        var rect4 = this.add.rectangle(innerWidth/8 * 7, innerHeight/2, innerWidth/4 * 1, innerHeight, 0x7F6152);
 
+        rect1.setStrokeStyle(0, 0xffffff);
+        rect2.setStrokeStyle(0, 0xffffff);
+        rect3.setStrokeStyle(0, 0xffffff);
+        rect4.setStrokeStyle(0, 0xffffff);
+
+        rect1.setInteractive();
+        rect2.setInteractive();
+        rect3.setInteractive();
+        rect4.setInteractive();
+
+        rect1.on('pointerover', () => {
+
+            this.tweens.add({
+                targets: rect1,
+                scaleX: 1.07,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
         });
 
-        textToKnock.on('pointerdown', () => {
+        rect2.on('pointerover', () => {
 
-            mainMode = "knock";
+            this.tweens.add({
+                targets: rect2,
+                scaleX: 1.07,
+                duration: menuTweenDuration,
+                ease: 'Power2'
 
-            cursorHeight = 320;
-            stripeHeight = 160;
-//            cursorColor = 0xffffff; //0xffffff
-//            stripeColor = 0xffffff;
+            });
+        });
 
-            this.scene.start("mainScene")
+        rect3.on('pointerover', () => {
+
+            this.tweens.add({
+                targets: rect3,
+                scaleX: 1.07,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
+        });
+
+        rect4.on('pointerover', () => {
+
+            this.tweens.add({
+                targets: rect4,
+                scaleX: 1.07,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
+        });
+
+        rect1.on('pointerout', () => {
+
+            this.tweens.add({
+                targets: rect1,
+                scaleX: 1,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
+        });
+
+        rect2.on('pointerout', () => {
+
+            this.tweens.add({
+                targets: rect2,
+                scaleX: 1,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
+        });
+
+        rect3.on('pointerout', () => {
+
+            this.tweens.add({
+                targets: rect3,
+                scaleX: 1,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
+        });
+
+        rect4.on('pointerout', () => {
+
+            this.tweens.add({
+                targets: rect4,
+                scaleX: 1,
+                duration: menuTweenDuration,
+                ease: 'Power2'
+
+            });
         });
     }
 }
@@ -71,15 +216,6 @@ class mainScene extends Phaser.Scene {
 
     constructor ()    {
         super({ key: 'mainScene', active: false });
-    }
-
-    preload (){
-        this.load.audio('suiteki', ['assets/suiteki.mp3']);
-        this.load.audio('suityu', ['assets/suityu.mp3']);
-        this.load.audio('knock', ['assets/knock.mp3']);
-        this.load.image('thumb', 'assets/thumb.png');
-        this.load.image('thumb_mobile', 'assets/thumb.png');
-
     }
 
     create (){
@@ -137,6 +273,8 @@ class mainScene extends Phaser.Scene {
             Phaser.Geom.Rectangle.CenterOn(
                 cursor2, window.innerWidth/2, pointer.y);
         });
+
+
     }
 
     update(){
@@ -198,13 +336,71 @@ class mainScene extends Phaser.Scene {
     }
 }
 
+class protoTitleScene extends Phaser.Scene {
+
+    constructor ()    {
+        super({ key: 'protoTitleScene', active: false });
+    }
+
+    create(){
+
+        // textを配置
+        var textToWater = this.add.text(100, 100, "waterScene").setFontSize(32).setColor(textColor);
+        var textToKnock = this.add.text(100, 200, "knockScene").setFontSize(32).setColor(textColor);
+
+        // textをクリックできるように設定
+        textToWater.setInteractive({
+
+            useHandCursor: true  // マウスオーバーでカーソルが指マークになる
+
+        });
+
+        textToKnock.setInteractive({
+
+            useHandCursor: true  // マウスオーバーでカーソルが指マークになる
+
+        });
+
+        // textをクリックしたら__Sceneに遷移
+        textToWater.on('pointerdown', () => {
+
+            mainMode = "water";
+
+            cursorHeight = 160;
+            stripeHeight = 160;
+//            cursorColor = 0xffffff; //0xffffff
+//            stripeColor = 0xffffff;
+
+            this.scene.start("mainScene")
+
+        });
+
+        textToKnock.on('pointerdown', () => {
+
+            mainMode = "knock";
+
+            cursorHeight = 320;
+            stripeHeight = 160;
+//            cursorColor = 0xffffff;
+//            stripeColor = 0xffffff;
+
+            this.scene.start("mainScene")
+        });
+    }
+}
+
 let config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: window.innerWidth,
     height: window.innerHeight,
     backgroundColor: '#ffffff',
-    scene: [ titleScene, mainScene ],
+    scene: [ preloadScene,
+             titleScene,
+             descriptionScene,
+             protoTitleScene,
+             menuScene,
+             mainScene ],
     audio: {
         disableWebAudio: true
     }
