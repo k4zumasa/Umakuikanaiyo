@@ -58,7 +58,7 @@ class preloadScene extends Phaser.Scene {
 
     create() {
 //        this.scene.start("titleScene")
-        this.scene.start("menuScene")
+        this.scene.start("titleScene")
     }
 }
 
@@ -128,7 +128,7 @@ class descriptionScene extends Phaser.Scene {
 class menuScene extends Phaser.Scene {
 
     constructor ()    {
-        super({ key: 'menuScene', active: true });
+        super({ key: 'menuScene', active: false });
     }
 
     create() {
