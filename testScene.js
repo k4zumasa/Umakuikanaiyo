@@ -16,29 +16,17 @@ var textColor = "0x000000";
 var fadeTime = 1300;
 var menuTweenDuration = 2000;
 var tweenIsPlaying = false;
-var currentMainMode = [];
+var currentMainMode = [0, 0, 0];
 
 var waterblue = "0x72DAE8"
 var grassgreen = "0x5F9968"
 var metalgray = "0x8A9DAD"
 var mudbrown = "0x7F6152"
 
-function hex2rgb ( hex ) {
-	if ( hex.slice(0, 1) == "#" ) hex = hex.slice(1) ;
-	if ( hex.length == 3 ) hex = hex.slice(0,1) + hex.slice(0,1) + hex.slice(1,2) + hex.slice(1,2) + hex.slice(2,3) + hex.slice(2,3) ;
-
-	return [ hex.slice( 0, 2 ), hex.slice( 2, 4 ), hex.slice( 4, 6 ) ].map( function ( str ) {
-		return parseInt( str, 16 ) ;
-	} ) ;
-}
-
-var waterblueRGB = hex2rgb(waterblue);
-var grassgreenRGB = hex2rgb(grassgreen);
-var metalgrayRGB = hex2rgb(metalgray);
-var mudbrownRGB = hex2rgb(mudbrown);
-
-console.log(waterblueRGB);
-
+var waterblueRGB = [114, 218, 232];
+var grassgreenRGB = [95, 153, 104];
+var metalgrayRGB = [138, 157, 173];
+var mudbrownRGB = [127, 97, 82];
 
 //素材の読み込みシーン
 class preloadScene extends Phaser.Scene {
@@ -164,8 +152,9 @@ class menuScene extends Phaser.Scene {
 
             if(tweenIsPlaying == false){
 
+                arrayCopy( currentMainMode, waterblueRGB ) ;
+
                 tweenIsPlaying = true;
-                console.log(tweenIsPlaying);
 
                 this.tweens.add({
                     targets: rect1,
@@ -175,8 +164,7 @@ class menuScene extends Phaser.Scene {
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
                     onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1) ;
-                                              currentMainMode = hex2rgb(waterblue) ; }
+                                              goToMainScene(1) ; }
                     }, this);
 
                 fadeOut(this, rect2, rect3, rect4);
@@ -187,6 +175,9 @@ class menuScene extends Phaser.Scene {
         rect2.on('pointerdown', () => {
 
             if(tweenIsPlaying == false){
+
+                arrayCopy( currentMainMode, grassgreenRGB );
+
                 tweenIsPlaying = true;
 
                 this.tweens.add({
@@ -197,8 +188,7 @@ class menuScene extends Phaser.Scene {
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
                     onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1);
-                                              currentMainMode = grassgreenRGB; }
+                                              goToMainScene(1); }
                     }, this);
 
                 fadeOut(this, rect1, rect3, rect4);
@@ -210,6 +200,9 @@ class menuScene extends Phaser.Scene {
         rect3.on('pointerdown', () => {
 
             if(tweenIsPlaying == false){
+
+                arrayCopy( currentMainMode, metalgrayRGB );
+
                 tweenIsPlaying = true;
 
                 this.tweens.add({
@@ -220,8 +213,7 @@ class menuScene extends Phaser.Scene {
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
                     onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1);
-                                              currentMainMode = metalgrayRGB; }
+                                              goToMainScene(1); }
                     }, this);
 
                 fadeOut(this, rect1, rect2, rect4);
@@ -232,6 +224,9 @@ class menuScene extends Phaser.Scene {
         rect4.on('pointerdown', () => {
 
             if(tweenIsPlaying == false){
+
+                arrayCopy( currentMainMode, mudbrownRGB );
+
                 tweenIsPlaying = true;
 
                 this.tweens.add({
@@ -242,8 +237,7 @@ class menuScene extends Phaser.Scene {
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
                     onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1);
-                                              currentMainMode = mudbrownRGB; }
+                                              goToMainScene(1); }
                     }, this);
 
                 fadeOut(this, rect1, rect2, rect3);
@@ -264,6 +258,11 @@ class menuScene extends Phaser.Scene {
             game.scene.start("mainScene")
         }
 
+        function arrayCopy(a, b) {
+            for (let i = 0; i < b.length; ++i) {
+                a[i] = b[i];
+            }
+        }
     }
 }
 
@@ -274,8 +273,10 @@ class mainScene extends Phaser.Scene {
     }
 
     create (){
-        console.log(currentMainMode);
-        this.cameras.main.fadeIn(1000, waterblue[0], waterblue[1], waterblue[2]);
+
+        console.log(currentMainMode[0], currentMainMode[1], currentMainMode[2]);
+//        this.cameras.main.fadeIn(1000, waterblueRGB[0], waterblueRGB[1], waterblueRGB[2]);
+        this.cameras.main.fadeIn(1000, currentMainMode[0], currentMainMode[1], currentMainMode[2]);
 
         //Return to titleボタンを配置
         var textToTitle = this.add.text(0, 0, "Return to title").setFontSize(32).setColor('#000000');
@@ -287,7 +288,11 @@ class mainScene extends Phaser.Scene {
         });
 
         textToTitle.on('pointerdown', () => {
-            this.scene.start("menuScene")
+            this.cameras.main.fadeOut(1000, 255, 255, 255);
+
+            this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+                this.scene.start("menuScene")
+            });
         });
 
         this.suityu = this.sound.add('suityu', false);
