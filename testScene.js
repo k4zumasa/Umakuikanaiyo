@@ -288,11 +288,8 @@ class mainScene extends Phaser.Scene {
         });
 
         textToTitle.on('pointerdown', () => {
-            this.cameras.main.fadeOut(1000, 255, 255, 255);
-
-            this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-                this.scene.start("menuScene")
-            });
+//            this.cameras.main.fadeOut(1000, 255, 255, 255);
+            this.scene.start("menuScene");
         });
 
         this.suityu = this.sound.add('suityu', false);
