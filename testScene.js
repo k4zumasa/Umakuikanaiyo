@@ -113,6 +113,38 @@ class descriptionScene extends Phaser.Scene {
     }
 }
 
+class audioNotifyScene extends Phaser.Scene {
+
+    constructor () {
+        super({ key: 'audioNotifyScene', active: false });
+    }
+
+    create() {
+        var descriptionImage = this.add.sprite(window.innerWidth/2, window.innerHeight/2+40, 'description').setAlpha(0).setInteractive();
+
+        this.tweens.add({
+          targets: descriptionImage,
+          alpha: 1,
+          y : window.innerHeight/2,
+          duration: fadeTime,
+          ease: 'Power2'
+        }, this);
+
+        descriptionImage.on('pointerdown', () => {
+
+            this.tweens.add({
+              targets: descriptionImage,
+              alpha: 0,
+              y : window.innerHeight/2-40,
+              duration: fadeTime,
+              ease: 'Power2',
+              onComplete: () => { this.scene.start("menuScene") },
+            }, this);
+        });
+
+    }
+}
+
 class menuScene extends Phaser.Scene {
 
     constructor ()    {
@@ -120,6 +152,7 @@ class menuScene extends Phaser.Scene {
     }
 
     create() {
+        tweenIsPlaying = false;
 
         var rectArray = [];
         var rect1 = this.add.rectangle(innerWidth/2 - 100 - 100 * 0.6 * 1.5 - 100 * 0.5, innerHeight/2 + 40, 100, 100, waterblue);
@@ -141,7 +174,7 @@ class menuScene extends Phaser.Scene {
               alpha: 1,
               duration: fadeTime,
               ease: 'Expo.easeInOut',
-              onComplete: function () { tweenIsPlaying = false; }
+              onComplete: function () {  }
               }, this);
 
               elem.setStrokeStyle(0);
@@ -163,8 +196,7 @@ class menuScene extends Phaser.Scene {
                     x: innerWidth/2,
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
-                    onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1) ; }
+                    onComplete: function () { goToMainScene(1) ; }
                     }, this);
 
                 fadeOut(this, rect2, rect3, rect4);
@@ -187,8 +219,7 @@ class menuScene extends Phaser.Scene {
                     x: innerWidth/2,
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
-                    onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1); }
+                    onComplete: function () { goToMainScene(2); }
                     }, this);
 
                 fadeOut(this, rect1, rect3, rect4);
@@ -212,8 +243,7 @@ class menuScene extends Phaser.Scene {
                     x: innerWidth/2,
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
-                    onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1); }
+                    onComplete: function () { goToMainScene(3); }
                     }, this);
 
                 fadeOut(this, rect1, rect2, rect4);
@@ -236,8 +266,7 @@ class menuScene extends Phaser.Scene {
                     x: innerWidth/2,
                     duration: menuTweenDuration,
                     ease: 'Expo.easeInOut',
-                    onComplete: function () { tweenIsPlaying = false;
-                                              goToMainScene(1); }
+                    onComplete: function () { goToMainScene(4); }
                     }, this);
 
                 fadeOut(this, rect1, rect2, rect3);
@@ -255,7 +284,30 @@ class menuScene extends Phaser.Scene {
         }
 
         function goToMainScene(a){
+
+            if(a == 1){
+                mainMode = "water";
+
+                cursorHeight = 160;
+                stripeHeight = 160;
+            }
+
+            if(a == 2){
+
+            }
+
+            if(a == 3){
+
+            }
+
+            if(a == 4){
+                mainMode = "knock";
+
+                cursorHeight = stripeHeight * 2;
+                stripeHeight = 160;
+            }
             game.scene.start("mainScene")
+            console.log("gotomainscene called");
         }
 
         function arrayCopy(a, b) {
@@ -438,7 +490,7 @@ class protoTitleScene extends Phaser.Scene {
 
             mainMode = "knock";
 
-            cursorHeight = 320;
+            cursorHeight = stripeHeight * 2;
             stripeHeight = 160;
 //            cursorColor = 0xffffff;
 //            stripeColor = 0xffffff;
