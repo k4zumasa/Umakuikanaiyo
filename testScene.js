@@ -7,8 +7,8 @@ var cursorWidth = window.innerWidth;
 var stripeWidth = window.innerWidth;
 var cursorHeight = 160;
 var stripeHeight = 160;
-var cursorColor = 0xffffff; //0xffffff
-var stripeColor = 0xffffff;
+var cursorColor = 0xF8F8F8; //0xffffff
+var stripeColor = 0xF8F8F8;
 var suitekiplayed;
 var knockplayed;
 var mainMode;
@@ -22,6 +22,8 @@ var waterblue = "0x72DAE8"
 var grassgreen = "0x5F9968"
 var metalgray = "0x8A9DAD"
 var mudbrown = "0x7F6152"
+
+var bgwhite = "0xF8F8F8"; //#F8F8F8
 
 var waterblueRGB = [114, 218, 232];
 var grassgreenRGB = [95, 153, 104];
@@ -38,6 +40,7 @@ class preloadScene extends Phaser.Scene {
     preload() {
         this.load.image('titleBg', 'assets/thumb_mobile.png');
         this.load.image('description', ['assets/description.png']);
+        this.load.image('audioNotify', ['assets/audioNotify.png']);
 
         this.load.audio('suiteki', ['assets/suiteki.mp3']);
         this.load.audio('suityu', ['assets/suityu.mp3']);
@@ -106,7 +109,7 @@ class descriptionScene extends Phaser.Scene {
               y : window.innerHeight/2-40,
               duration: fadeTime,
               ease: 'Power2',
-              onComplete: () => { this.scene.start("menuScene") },
+              onComplete: () => { this.scene.start("audioNotifyScene") },
             }, this);
         });
 
@@ -120,20 +123,20 @@ class audioNotifyScene extends Phaser.Scene {
     }
 
     create() {
-        var descriptionImage = this.add.sprite(window.innerWidth/2, window.innerHeight/2+40, 'description').setAlpha(0).setInteractive();
+        var audioNotifyImage = this.add.sprite(window.innerWidth/2, window.innerHeight/2+40, 'audioNotify').setAlpha(0).setInteractive();
 
         this.tweens.add({
-          targets: descriptionImage,
+          targets: audioNotifyImage,
           alpha: 1,
           y : window.innerHeight/2,
           duration: fadeTime,
           ease: 'Power2'
         }, this);
 
-        descriptionImage.on('pointerdown', () => {
+        audioNotifyImage.on('pointerdown', () => {
 
             this.tweens.add({
-              targets: descriptionImage,
+              targets: audioNotifyImage,
               alpha: 0,
               y : window.innerHeight/2-40,
               duration: fadeTime,
@@ -155,6 +158,8 @@ class menuScene extends Phaser.Scene {
         tweenIsPlaying = false;
 
         var rectArray = [];
+        var backgroundRect = this.add.rectangle(innerWidth/2 , innerHeight/2 , innerWidth, innerHeight, bgwhite);
+
         var rect1 = this.add.rectangle(innerWidth/2 - 100 - 100 * 0.6 * 1.5 - 100 * 0.5, innerHeight/2 + 40, 100, 100, waterblue);
         var rect2 = this.add.rectangle(innerWidth/2 - 100 * 0.5 - 100 * 0.6 * 0.5, innerHeight/2 + 40, 100, 100, grassgreen);
         var rect3 = this.add.rectangle(innerWidth/2 + 100 * 0.5 + 100 * 0.6 * 0.5, innerHeight/2 + 40, 100, 100, metalgray);
@@ -509,6 +514,7 @@ let config = {
     scene: [ preloadScene,
              titleScene,
              descriptionScene,
+             audioNotifyScene,
              protoTitleScene,
              menuScene,
              mainScene ],
