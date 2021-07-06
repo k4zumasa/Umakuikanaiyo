@@ -45,6 +45,9 @@ class preloadScene extends Phaser.Scene {
         this.load.audio('suiteki', ['assets/suiteki.mp3']);
         this.load.audio('suityu', ['assets/suityu.mp3']);
         this.load.audio('knock', ['assets/knock.mp3']);
+        this.load.audio('kusatyu', ['assets/kusatyu.mp3']);
+        this.load.audio('kusanuke', ['assets/kusanuke.mp3']);
+        this.load.audio('metal', ['assets/metal.mp3']);
     }
 
     create() {
@@ -298,15 +301,21 @@ class menuScene extends Phaser.Scene {
             }
 
             if(a == 2){
+                mainMode = "grass";
 
+                cursorHeight = 160;
+                stripeHeight = 160;
             }
 
             if(a == 3){
+                mainMode = "metal";
 
+                cursorHeight = stripeHeight * 2;
+                stripeHeight = 160;
             }
 
             if(a == 4){
-                mainMode = "knock";
+                mainMode = "wood";
 
                 cursorHeight = stripeHeight * 2;
                 stripeHeight = 160;
@@ -352,6 +361,9 @@ class mainScene extends Phaser.Scene {
         this.suityu = this.sound.add('suityu', false);
         this.suiteki = this.sound.add('suiteki', false);
         this.knock = this.sound.add('knock', false);
+        this.kusatyu = this.sound.add('kusatyu', false);
+        this.kusanuke = this.sound.add('kusanuke', false);
+        this.metal = this.sound.add('metal', false);
 
         graphics = this.add.graphics(
         {fillStyle: { color: cursorColor }
@@ -426,7 +438,58 @@ class mainScene extends Phaser.Scene {
                 }
             }
         }
-        if(mainMode == "knock"){
+
+        if(mainMode == "grass"){
+            if (Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[0])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[1])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[2])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[3])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[4])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[5]) ){
+
+
+                if(!this.kusatyu.isPlaying){
+                    this.kusatyu.play();
+                }
+                suitekiplayed = false;
+
+            }else{
+                if(this.kusatyu.isPlaying){
+                    this.kusatyu.stop();
+                }
+        //
+                if(!this.kusanuke.isPlaying && !suitekiplayed){
+                    this.kusanuke.play();
+                    suitekiplayed = true;
+                }
+            }
+        }
+
+        if(mainMode == "metal"){
+            if(Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[0])
+                && Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[1])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[1])
+                && Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[2])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[2])
+                && Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[3])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[3])
+                && Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[4])
+                || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[4])
+                && Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[5] )) {
+
+                if(knockplayed == false){
+
+                    this.metal.play();
+                    knockplayed = true;
+
+                }
+
+            }else{
+                knockplayed = false;
+            }
+        }
+
+        if(mainMode == "wood"){
             if(Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[0])
                 && Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[1])
                 || Phaser.Geom.Intersects.RectangleToRectangle(cursor2, rectangles[1])
