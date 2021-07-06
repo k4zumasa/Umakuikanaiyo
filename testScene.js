@@ -16,12 +16,16 @@ var textColor = "0x000000";
 var fadeTime = 1300;
 var menuTweenDuration = 2000;
 var tweenIsPlaying = false;
+var mainCalledFirstTime = true;
 var currentMainMode = [0, 0, 0];
+var currentBgColor;
+
 
 var waterblue = "0x72DAE8"
 var grassgreen = "0x5F9968"
 var metalgray = "0x8A9DAD"
 var mudbrown = "0x7F6152"
+var transDark = "0x000000"
 
 var bgwhite = "0xF8F8F8"; //#F8F8F8
 
@@ -34,13 +38,14 @@ var mudbrownRGB = [127, 97, 82];
 class preloadScene extends Phaser.Scene {
 
     constructor ()    {
-        super({ key: 'preloadScene', active: true });
+        super({ key: 'preloadScene', active: false });
     }
 
     preload() {
         this.load.image('titleBg', 'assets/thumb_mobile.png');
         this.load.image('description', ['assets/description.png']);
         this.load.image('audioNotify', ['assets/audioNotify.png']);
+        this.load.image('tutorial', ['assets/tutorial.png']);
 
         this.load.audio('suiteki', ['assets/suiteki.mp3']);
         this.load.audio('suityu', ['assets/suityu.mp3']);
@@ -48,11 +53,18 @@ class preloadScene extends Phaser.Scene {
         this.load.audio('kusatyu', ['assets/kusatyu.mp3']);
         this.load.audio('kusanuke', ['assets/kusanuke.mp3']);
         this.load.audio('metal', ['assets/metal.mp3']);
+
+        var url;
+
+        url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexpinchplugin.min.js';
+        this.load.plugin('rexpinchplugin', url, true);
     }
 
     create() {
-//        this.scene.start("titleScene")
-        this.scene.start("titleScene")
+//        this.scene.start("titleScene");
+//        this.scene.start("tutorialScene");
+        this.scene.start("menuScene");
+
     }
 }
 
@@ -60,7 +72,7 @@ class preloadScene extends Phaser.Scene {
 class titleScene extends Phaser.Scene {
 
     constructor () {
-        super({ key: 'titleScene', active: true });
+        super({ key: 'titleScene', active: false });
     }
 
     create() {
@@ -172,12 +184,13 @@ class menuScene extends Phaser.Scene {
 
         rectArray.push(rect1, rect2, rect3, rect4);
 
-        //アイコンのフェードイン表現
-        for (const elem of rectArray){
-            elem.setAlpha(0);
-        }
-
         for (const elem of rectArray) {
+
+            elem.setAlpha(0);
+            elem.setStrokeStyle(0);
+            elem.setInteractive();
+            elem.depth = 0;
+
             this.tweens.add({
               targets: elem,
               y: innerHeight/2,
@@ -187,8 +200,6 @@ class menuScene extends Phaser.Scene {
               onComplete: function () {  }
               }, this);
 
-              elem.setStrokeStyle(0);
-              elem.setInteractive();
         }
 
         rect1.on('pointerdown', () => {
@@ -295,7 +306,9 @@ class menuScene extends Phaser.Scene {
 
         function goToMainScene(a){
 
-            if(a == 1){
+
+            if(a == 1 ){
+                currentBgColor = waterblue;
                 mainMode = "water";
 
                 cursorHeight = 160;
@@ -303,6 +316,7 @@ class menuScene extends Phaser.Scene {
             }
 
             if(a == 2){
+                currentBgColor = grassgreen;
                 mainMode = "grass";
 
                 cursorHeight = 160;
@@ -310,6 +324,7 @@ class menuScene extends Phaser.Scene {
             }
 
             if(a == 3){
+                currentBgColor = metalgray;
                 mainMode = "metal";
 
                 cursorHeight = stripeHeight * 2;
@@ -317,13 +332,30 @@ class menuScene extends Phaser.Scene {
             }
 
             if(a == 4){
+                currentBgColor = mudbrown;
                 mainMode = "wood";
 
                 cursorHeight = stripeHeight * 2;
                 stripeHeight = 160;
             }
-            game.scene.start("mainScene")
-            console.log("gotomainscene called");
+
+            if ( mainCalledFirstTime == true ){
+
+                backgroundRect.destroy();
+
+                for (const elem of rectArray) {
+
+                    elem.destroy();
+
+                }
+
+                game.scene.start("tutorialScene");
+
+            }else{
+
+                game.scene.start("mainScene")
+
+            }
         }
 
         function arrayCopy(a, b) {
@@ -331,6 +363,65 @@ class menuScene extends Phaser.Scene {
                 a[i] = b[i];
             }
         }
+    }
+}
+
+class tutorialScene extends Phaser.Scene {
+
+    constructor ()    {
+        super({ key: 'tutorialScene', active: false });
+    }
+
+    create() {
+
+        mainCalledFirstTime = false;
+
+        console.log("tutorial called");
+
+        var backgroundRect2 = this.add.rectangle(innerWidth/2 ,innerHeight/2 ,innerWidth, innerHeight, currentBgColor);
+        var transDarkRect = this.add.rectangle(innerWidth/2 ,innerHeight/2 ,innerWidth, innerHeight, transDark).setAlpha(0);
+        var tutorialImage = this.add.sprite(window.innerWidth/2, window.innerHeight/2, 'tutorial').setAlpha(0).setInteractive();
+
+//        transDarkRect.setDepth(1);
+//        tutorialImage.setDepth(2);
+
+        transDarkRect.setStrokeStyle(0);
+
+        console.log("tween called");
+
+        this.tweens.add({
+            targets: transDarkRect,
+            alpha: 0.25,
+            duration: fadeTime,
+            ease: 'Power2',
+            onComplete: function () {  }
+            }, this);
+
+        this.tweens.add({
+          targets: tutorialImage,
+          alpha: 1,
+          duration: fadeTime,
+          ease: 'Power2'
+        }, this);
+
+        tutorialImage.on('pointerdown', () => {
+
+            this.tweens.add({
+              targets: tutorialImage,
+              alpha: 0,
+              duration: fadeTime,
+              ease: 'Power2',
+              onComplete: () => {  },
+            }, this);
+
+            this.tweens.add({
+              targets: transDarkRect,
+              alpha: 0,
+              duration: fadeTime,
+              ease: 'Power2',
+              onComplete: () => { this.scene.start("mainScene") },
+            }, this);
+        });
     }
 }
 
@@ -342,8 +433,20 @@ class mainScene extends Phaser.Scene {
 
     create (){
 
-        console.log(currentMainMode[0], currentMainMode[1], currentMainMode[2]);
-//        this.cameras.main.fadeIn(1000, waterblueRGB[0], waterblueRGB[1], waterblueRGB[2]);
+        var pinch = this.plugins.get('rexpinchplugin').add(this);
+
+        var pinch = this.cameras.main;
+        pinch
+            .on('drag1', function (dragScale) {
+
+            })
+            .on('pinch', function (dragScale) {
+                game.scene.start("menuScene")
+            }, this)
+
+
+
+
         this.cameras.main.fadeIn(1000, currentMainMode[0], currentMainMode[1], currentMainMode[2]);
 
         //Return to titleボタンを配置
@@ -366,6 +469,9 @@ class mainScene extends Phaser.Scene {
         this.kusatyu = this.sound.add('kusatyu', false);
         this.kusanuke = this.sound.add('kusanuke', false);
         this.metal = this.sound.add('metal', false);
+
+
+        var backgroundRect = this.add.rectangle(innerWidth/2 ,innerHeight/2 ,innerWidth, innerHeight, currentBgColor);
 
         graphics = this.add.graphics(
         {fillStyle: { color: cursorColor }
@@ -580,7 +686,7 @@ let config = {
              titleScene,
              descriptionScene,
              audioNotifyScene,
-             protoTitleScene,
+             tutorialScene,
              menuScene,
              mainScene ],
     audio: {
