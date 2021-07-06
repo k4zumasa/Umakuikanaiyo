@@ -54,6 +54,9 @@ class preloadScene extends Phaser.Scene {
         this.load.audio('kusanuke', ['assets/kusanuke.mp3']);
         this.load.audio('metal', ['assets/metal.mp3']);
 
+//        this.load.scenePlugin('rexgesturesplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexgesturesplugin.min.js', 'rexGestures', 'rexGestures');
+
+
         var url;
 
         url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexpinchplugin.min.js';
@@ -433,19 +436,12 @@ class mainScene extends Phaser.Scene {
 
     create (){
 
-        var pinch = this.plugins.get('rexpinchplugin').add(this);
+        this.input.addPointer(1);
 
-        var pinch = this.cameras.main;
-        pinch
-            .on('drag1', function (dragScale) {
-
-            })
-            .on('pinch', function (dragScale) {
-                game.scene.start("menuScene")
-            }, this)
-
-
-
+        if (this.input.pointer1.isDown || this.input.pointer2.isDown )
+        {
+            this.scene.start("menuScene");
+        }
 
         this.cameras.main.fadeIn(1000, currentMainMode[0], currentMainMode[1], currentMainMode[2]);
 
@@ -681,7 +677,7 @@ let config = {
     parent: 'phaser-example',
     width: window.innerWidth,
     height: window.innerHeight,
-    backgroundColor: '#ffffff',
+    backgroundColor: bgwhite,
     scene: [ preloadScene,
              titleScene,
              descriptionScene,
