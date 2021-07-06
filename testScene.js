@@ -158,6 +158,8 @@ class menuScene extends Phaser.Scene {
     }
 
     create() {
+        game.sound.stopAll();
+
         tweenIsPlaying = false;
 
         var rectArray = [];
