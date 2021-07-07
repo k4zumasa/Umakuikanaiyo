@@ -512,7 +512,7 @@ class mainScene extends Phaser.Scene {
                 cursor2, window.innerWidth/2, pointer.y);
         });
 
-        var backbuttonImage = this.add.sprite(90, 90, 'backButton').setAlpha(1).setInteractive().setScale(0.8);
+        var backbuttonImage = this.add.sprite(90, 100, 'backButton').setAlpha(1).setInteractive().setScale(0.8);
 
         backbuttonImage.on('pointerdown', () => {
             console.log("back pushed")
