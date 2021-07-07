@@ -38,7 +38,7 @@ var mudbrownRGB = [127, 97, 82];
 class preloadScene extends Phaser.Scene {
 
     constructor ()    {
-        super({ key: 'preloadScene', active: false });
+        super({ key: 'preloadScene', active: true });
     }
 
     preload() {
@@ -46,6 +46,7 @@ class preloadScene extends Phaser.Scene {
         this.load.image('description', ['assets/description.png']);
         this.load.image('audioNotify', ['assets/audioNotify.png']);
         this.load.image('tutorial', ['assets/tutorial.png']);
+        this.load.image('backButton', ['assets/backButton.png']);
 
         this.load.audio('suiteki', ['assets/suiteki.mp3']);
         this.load.audio('suityu', ['assets/suityu.mp3']);
@@ -64,9 +65,10 @@ class preloadScene extends Phaser.Scene {
     }
 
     create() {
-//        this.scene.start("titleScene");
+
+        this.scene.start("titleScene");
 //        this.scene.start("tutorialScene");
-        this.scene.start("menuScene");
+//        this.scene.start("menuScene");
 
     }
 }
@@ -173,6 +175,7 @@ class menuScene extends Phaser.Scene {
     }
 
     create() {
+
         game.sound.stopAll();
 
         tweenIsPlaying = false;
@@ -436,28 +439,31 @@ class mainScene extends Phaser.Scene {
 
     create (){
 
-        this.input.addPointer(1);
-
-        if (this.input.pointer1.isDown || this.input.pointer2.isDown )
-        {
-            this.scene.start("menuScene");
-        }
+//        var pointer = this.input.activePointer;
+//
+//        this.input.addPointer(1);
+//
+//        if (this.input.pointer1.isDown || this.input.pointer2.isDown )
+//        {
+//            console.log("2 pointer downed");
+//            this.scene.start("menuScene");
+//        }
 
         this.cameras.main.fadeIn(1000, currentMainMode[0], currentMainMode[1], currentMainMode[2]);
 
         //Return to titleボタンを配置
-        var textToTitle = this.add.text(0, 0, "Return to title").setFontSize(32).setColor('#000000');
-
-        textToTitle.setInteractive({
-
-            useHandCursor: true  // マウスオーバーでカーソルが指マークになる
-
-        });
-
-        textToTitle.on('pointerdown', () => {
-//            this.cameras.main.fadeOut(1000, 255, 255, 255);
-            this.scene.start("menuScene");
-        });
+//        var textToTitle = this.add.text(0, 0, "Return to title").setFontSize(32).setColor('#000000');
+//
+//        textToTitle.setInteractive({
+//
+//            useHandCursor: true  // マウスオーバーでカーソルが指マークになる
+//
+//        });
+//
+//        textToTitle.on('pointerdown', () => {
+////            this.cameras.main.fadeOut(1000, 255, 255, 255);
+//            this.scene.start("menuScene");
+//        });
 
         this.suityu = this.sound.add('suityu', false);
         this.suiteki = this.sound.add('suiteki', false);
@@ -506,7 +512,13 @@ class mainScene extends Phaser.Scene {
                 cursor2, window.innerWidth/2, pointer.y);
         });
 
+        var backbuttonImage = this.add.sprite(90, 90, 'backButton').setAlpha(1).setInteractive().setScale(0.8);
 
+        backbuttonImage.on('pointerdown', () => {
+            console.log("back pushed")
+            this.cameras.main.fadeOut(1000, 255, 255, 255);
+            this.scene.start("menuScene");
+        });
     }
 
     update(){
