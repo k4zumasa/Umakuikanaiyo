@@ -44,7 +44,7 @@ class preloadScene extends Phaser.Scene {
         this.load.image('titleBg', 'assets/thumb_mobile.png');
         this.load.image('description', ['assets/description.png']);
         this.load.image('audioNotify', ['assets/audioNotify.png']);
-        this.load.image('tutorial', ['assets/tutorial.png']);
+        this.load.image('tutorial', ['assets/tutorial2.png']);
         this.load.image('backButton', ['assets/backButton.png']);
 
         this.load.audio('suiteki', ['assets/suiteki.mp3']);
