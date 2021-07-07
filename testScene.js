@@ -20,19 +20,18 @@ var mainCalledFirstTime = true;
 var currentMainMode = [0, 0, 0];
 var currentBgColor;
 
-
+var bgwhite = "0xF8F8F8"; //#F8F8F8
 var waterblue = "0x72DAE8"
 var grassgreen = "0x5F9968"
 var metalgray = "0x8A9DAD"
 var mudbrown = "0x7F6152"
 var transDark = "0x000000"
 
-var bgwhite = "0xF8F8F8"; //#F8F8F8
-
 var waterblueRGB = [114, 218, 232];
 var grassgreenRGB = [95, 153, 104];
 var metalgrayRGB = [138, 157, 173];
 var mudbrownRGB = [127, 97, 82];
+
 
 //素材の読み込みシーン
 class preloadScene extends Phaser.Scene {
