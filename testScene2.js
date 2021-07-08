@@ -19,7 +19,6 @@ var tweenIsPlaying = false;
 var mainCalledFirstTime = true;
 var currentMainMode = [0, 0, 0];
 var currentBgColor;
-var topMargin = 200;
 
 var bgwhite = "0xF8F8F8"; //#F8F8F8
 var waterblue = "0x72DAE8"
@@ -449,25 +448,25 @@ class mainScene extends Phaser.Scene {
         });
         cursor = new Phaser.Geom.Rectangle(
             window.innerWidth/2 - cursorWidth/2,
-            topMargin,
+            0,
             cursorWidth,
             cursorHeight, Phaser.Geom.Rectangle.Contains);
 
         //当たり判定のための透明カーソル
         cursor2 = new Phaser.Geom.Rectangle(
             window.innerWidth/2 - cursorWidth/2,
-            topMargin,
+            0,
             cursorWidth,
             cursorHeight * 0.9,
             Phaser.Geom.Rectangle.Contains);
 
         //ストライプ生成
         rectangles = [];
-        for(var i = 0; i < 6; i++)
+        for(var i = 0; i < 5; i++)
         {
             rectangles.push(new Phaser.Geom.Rectangle(
             window.innerWidth/2 - stripeWidth/2,
-            topMargin + stripeHeight * i * 2,
+            window.innerHeight/2 - stripeHeight/2*(-11 + i*4),
             stripeWidth,
             stripeHeight,
             cursorColor));
@@ -540,7 +539,7 @@ class mainScene extends Phaser.Scene {
                 if(this.kusatyu.isPlaying){
                     this.kusatyu.stop();
                 }
-
+        //
                 if(!this.kusanuke.isPlaying && !suitekiplayed){
                     this.kusanuke.play();
                     suitekiplayed = true;
