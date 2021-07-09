@@ -48,12 +48,12 @@ class preloadScene extends Phaser.Scene {
         this.load.image('tutorial', ['assets/tutorial2.png']);
         this.load.image('backButton', ['assets/backButton.png']);
 
-        this.load.audio('suiteki', ['assets/suiteki.mp3']);
-        this.load.audio('suityu', ['assets/suityu.mp3']);
-        this.load.audio('knock', ['assets/knock3.mp3']);
-        this.load.audio('kusatyu', ['assets/kusatyu.mp3']);
-        this.load.audio('kusanuke', ['assets/kusanuke(2).mp3']);
-        this.load.audio('metal', ['assets/metal.mp3']);
+        this.load.audio('suiteki', ['assets/suiteki.m4a']);
+        this.load.audio('suityu', ['assets/suityu.m4a']);
+        this.load.audio('knock', ['assets/knock3.m4a']);
+        this.load.audio('kusatyu', ['assets/kusatyu.m4a']);
+        this.load.audio('kusanuke', ['assets/kusanuke(2).m4a']);
+        this.load.audio('metal', ['assets/metal.m4a']);
 
 
     }
@@ -382,9 +382,6 @@ class tutorialScene extends Phaser.Scene {
         var transDarkRect = this.add.rectangle(innerWidth/2 ,innerHeight/2 ,innerWidth, innerHeight, transDark).setAlpha(0);
         var tutorialImage = this.add.sprite(window.innerWidth/2, window.innerHeight/2, 'tutorial').setAlpha(0).setInteractive();
 
-//        transDarkRect.setDepth(1);
-//        tutorialImage.setDepth(2);
-
         transDarkRect.setStrokeStyle(0);
 
         console.log("tween called");
@@ -611,9 +608,9 @@ let config = {
              tutorialScene,
              menuScene,
              mainScene ],
-    audio: {
-        disableWebAudio: true
-    }
+//    audio: {
+//        disableWebAudio: true
+//    }
 }
 
 let game = new Phaser.Game(config);
